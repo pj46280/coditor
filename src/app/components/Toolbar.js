@@ -2,7 +2,7 @@
 
 const Toolbar = ({selectedFile, onSave}) => {
     return (
-        <div className="w-screen bg-black">
+        <div className="bg-zinc-900">
             <div className="flex p-2">
                 <div className="px-2">
                     <button>File</button>

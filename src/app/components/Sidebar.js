@@ -4,7 +4,7 @@ import Folder from './Folder'
 import { FaFolderPlus, FaFileMedical } from "react-icons/fa";
 import { useState } from 'react';
 
-const Sidebar = ({ structure, onSelectFile, onAddFile, onAddFolder }) => {
+const Sidebar = ({ structure, onSelectFile, onSelectFolder,  onAddFile, onAddFolder }) => {
     const [showFileInput, setShowFileInput] = useState(false);
     const [showFolderInput, setShowFolderInput] = useState(false);
     const [newFileName, setNewFileName] = useState('');
@@ -27,7 +27,7 @@ const Sidebar = ({ structure, onSelectFile, onAddFile, onAddFolder }) => {
     };
 
     return (
-    <div className="h-screen bg-gray-900">
+    <div className="bg-gray-900 h-full">
         <div className="bg-blue-500">
             <div className='flex justify-between py-3'>
                 <div className='px-2'>
@@ -89,11 +89,11 @@ const Sidebar = ({ structure, onSelectFile, onAddFile, onAddFolder }) => {
         )}
         <div className="px-5 py-2">
             {structure.map((folder, index) => (
-                <Folder key={index} folder={folder} onSelect={onSelectFile} />
+                <Folder key={index} folder={folder} onSelectFile={onSelectFile} onSelect={onSelectFolder} />
             ))}
         </div>
     </div>
   )
 }
 
-export default Sidebar
+export default Sidebar;

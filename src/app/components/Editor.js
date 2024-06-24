@@ -13,7 +13,9 @@ const CustomEditor = ({ file }) => {
     }, [file]);
 
     const handleContentChange = (file) => {
-        file.content = content;
+        if (file) {
+            file.content = content;
+        }
     };
 
     useEffect(() => {
@@ -29,7 +31,7 @@ const CustomEditor = ({ file }) => {
     return (
         <div className="h-full">
             <Editor 
-                height="100vh" 
+                height="100%"
                 defaultValue="// Select a file to view its contents" 
                 value={content} 
                 theme="vs-dark" 
