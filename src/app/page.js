@@ -3,7 +3,7 @@
 import Sidebar from './components/Sidebar';
 import CustomEditor from './components/Editor';
 import Toolbar from './components/Toolbar';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const initialStructure = [
   {
