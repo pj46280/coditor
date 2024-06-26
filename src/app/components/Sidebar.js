@@ -2,13 +2,15 @@
 
 import Folder from './Folder'
 import { FaFolderPlus, FaFileMedical } from "react-icons/fa";
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const Sidebar = ({ structure, onSelectFile, onSelectFolder,  onAddFile, onAddFolder }) => {
     const [showFileInput, setShowFileInput] = useState(false);
     const [showFolderInput, setShowFolderInput] = useState(false);
     const [newFileName, setNewFileName] = useState('');
     const [newFolderName, setNewFolderName] = useState('');
+    const fileInputRef = useRef(null);
+    const folderInputRef = useRef(null);
 
     const handleAddFile = () => {
         if (newFileName) {
@@ -26,6 +28,32 @@ const Sidebar = ({ structure, onSelectFile, onSelectFolder,  onAddFile, onAddFol
         }
     };
 
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Escape") {
+                setShowFileInput(false);
+                setShowFolderInput(false);
+            }
+        };
+        const handleClickOutside = (e) => {
+            if (fileInputRef.current && !fileInputRef.current.contains(e.target)) {
+                setShowFileInput(false);
+            }
+            if (folderInputRef.current && !folderInputRef.current.contains(e.target)) {
+                setShowFolderInput(false);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+
     return (
     <div className="bg-gray-900 h-full">
         <div className="bg-blue-500">
@@ -36,7 +64,7 @@ const Sidebar = ({ structure, onSelectFile, onSelectFolder,  onAddFile, onAddFol
                     </text>
                 </div>
                 <div className="flex">
-                    <div className="">
+                    <div className="hover:text-blue-900">
                         <button onClick={() => {
                             setShowFileInput(!showFileInput);
                             setShowFolderInput(false);
@@ -44,7 +72,7 @@ const Sidebar = ({ structure, onSelectFile, onSelectFolder,  onAddFile, onAddFol
                             <FaFileMedical size={20}/>
                         </button>
                     </div>
-                    <div className="px-5">
+                    <div className="px-5 hover:text-blue-900">
                         <button onClick={() => {
                             setShowFolderInput(!showFolderInput);
                             setShowFileInput(false);
@@ -56,7 +84,7 @@ const Sidebar = ({ structure, onSelectFile, onSelectFolder,  onAddFile, onAddFol
             </div>
         </div>
         {showFileInput && (
-            <div className="flex justify-between px-5">
+            <div className="flex justify-between px-5 py-2" ref={fileInputRef}>
                 <div className="w-3/4">
                     <input
                     type="text"
@@ -72,7 +100,7 @@ const Sidebar = ({ structure, onSelectFile, onSelectFolder,  onAddFile, onAddFol
             </div>
         )}
         {showFolderInput && (
-            <div className="flex justify-between px-5">
+            <div className="flex justify-between px-5 py-2" ref={folderInputRef}>
                 <div className="w-3/4">
                     <input
                     type="text"

@@ -10,7 +10,7 @@ const initialStructure = [
     name: "folder",
     folders: [],
     files: [
-      { name: "file.txt", extension: "txt", content: "Hello 👋" },
+      { name: "hello.txt", extension: "txt", content: "Hello 👋" },
     ]
   }
 ];
