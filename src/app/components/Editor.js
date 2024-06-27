@@ -2,13 +2,18 @@
 
 import Editor from '@monaco-editor/react';
 import { useState, useEffect } from 'react';
+import { extensions } from '../config';
+
 
 const CustomEditor = ({ file }) => {
-    const [content, setContent] = useState('');
+    const [content, setContent] = useState(null);
+    const [fileExtension, setFileExtension] = useState(null);
     
     useEffect(() => {
         if (file) {
             setContent(file.content);
+            setFileExtension(extensions[file.extension].language);
+            console.log(file);
         }
     }, [file]);
 
@@ -36,6 +41,7 @@ const CustomEditor = ({ file }) => {
                 value={content} 
                 theme="vs-dark" 
                 onChange={handleEditorChange}
+                language={fileExtension}
             />
         </div>
     );

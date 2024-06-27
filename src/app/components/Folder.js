@@ -8,7 +8,6 @@ const Folder = ({ folder, onSelectFile, onSelect }) => {
 
     const handleFolderSelect = (folder) => {
         onSelect(folder);
-        // console.log(folder);
         setIsOpen(!isOpen);
     };
 

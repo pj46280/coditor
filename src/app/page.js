@@ -4,13 +4,14 @@ import Sidebar from './components/Sidebar';
 import CustomEditor from './components/Editor';
 import Toolbar from './components/Toolbar';
 import { useState } from 'react';
+import { FaFile } from 'react-icons/fa';
 
 const initialStructure = [
   {
     name: "folder",
     folders: [],
     files: [
-      { name: "hello.txt", extension: "txt", content: "Hello 👋" },
+      { name: "hello.txt", extension: "txt", content: "Hello 👋", logo: <FaFile /> },
     ]
   }
 ];
@@ -53,10 +54,6 @@ export default function Home() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFolder, setSelectedFolder] = useState(null);
 
-  // useEffect(() => {
-  //   console.log('home: ', structure);
-  // }, [structure]);
-
   const handleFileSave = (fileName, newContent) => {
     const newStructure = JSON.parse(JSON.stringify(structure));
     updateFileContent(newStructure, fileName, newContent);
@@ -65,14 +62,12 @@ export default function Home() {
 
   const handleAddFile = (fileName) => {
     const newStructure = JSON.parse(JSON.stringify(structure));
-    //newStructure[0].files.push({name: fileName, extension: fileName.split('.').pop(), content: ''});
     jumpToFolder(newStructure, selectedFolder.name, fileName, false);
     setStructure(newStructure);
   };
 
   const handleAddFolder = (folderName) => {
     const newStructure = JSON.parse(JSON.stringify(structure));
-    // newStructure[0].folders.push({name: folderName, folders: [], files: []});
     jumpToFolder(newStructure, selectedFolder.name, folderName, true);
     setStructure(newStructure);
   };

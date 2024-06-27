@@ -1,13 +1,24 @@
-"use client"; 
+"use client";
+
+import { extensions } from "../config";
 
 const File = ({ file, onSelect }) => {
-  return (
-    <div className="cursor-pointer" onClick={() => {
-        onSelect(file);
+
+    const fileExtension = file.extension;
+    const symbol = extensions[fileExtension].logo;
+
+    return (
+        <div className="flex cursor-pointer" onClick={() => {
+            onSelect(file);
         }}>
-      📄 {file.name}
-    </div>
-  )
+            <div className="px-2 py-1">
+                {symbol} 
+            </div>
+            <div>
+                {file.name}
+            </div>
+        </div>
+    )
 }
 
 export default File
