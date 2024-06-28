@@ -8,15 +8,23 @@ const File = ({ file, onSelect }) => {
     const symbol = extensions[fileExtension].logo;
 
     return (
-        <div className="flex cursor-pointer" onClick={() => {
+        <div className="flex cursor-pointer w-1/2" onClick={() => {
             onSelect(file);
         }}>
             <div className="px-2 py-1">
                 {symbol} 
             </div>
-            <div>
-                {file.name}
-            </div>
+            {
+                fileExtension === "c" ? (
+                    <div className="px-1">
+                        {file.name}
+                    </div>
+                ) : (
+                    <div>
+                        {file.name}
+                    </div>
+                )
+            }
         </div>
     )
 }
