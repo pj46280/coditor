@@ -5,15 +5,30 @@ import { useState, useEffect } from 'react';
 import { extensions } from '../config';
 
 
-const CustomEditor = ({ file }) => {
+const CustomEditor = ({ file, onFileSave }) => {
     const [content, setContent] = useState(null);
     const [fileExtension, setFileExtension] = useState(null);
+
+    const handleSave = (e) => {
+        if (e.ctrlKey && e.key === "s") {
+            e.preventDefault();
+            if (file) {
+                onFileSave(file.name, file.content);
+            }
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleSave);
+        return () => {
+            document.removeEventListener('keydown', handleSave);
+        };
+    }, [file]);
     
     useEffect(() => {
         if (file) {
             setContent(file.content);
             setFileExtension(extensions[file.extension].language);
-            console.log(file);
         }
     }, [file]);
 

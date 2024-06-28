@@ -87,7 +87,7 @@ export default function Home() {
             />
           </div>
           <div className="w-4/5">
-            <CustomEditor file={selectedFile} />
+            <CustomEditor file={selectedFile} onFileSave={handleFileSave} />
           </div>
         </div>
       </div>
