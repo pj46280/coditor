@@ -3,18 +3,7 @@
 import Sidebar from './components/Sidebar';
 import CustomEditor from './components/Editor';
 import Toolbar from './components/Toolbar';
-import { useState } from 'react';
-import { FaFile } from 'react-icons/fa';
-
-const initialStructure = [
-  {
-    name: "folder",
-    folders: [],
-    files: [
-      { name: "hello.txt", extension: "txt", content: "Hello 👋", logo: <FaFile /> },
-    ]
-  }
-];
+import { useEffect, useState } from 'react';
 
 const updateFileContent = (structure, fileName, newContent) => {
   for (let item of structure) {
@@ -50,9 +39,41 @@ const jumpToFolder = (structure, selectedFolder, fileName, isFolder) => {
 };
 
 export default function Home() {
-  const [structure, setStructure] = useState(initialStructure);
+  const [structure, setStructure] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFolder, setSelectedFolder] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/getStructure');
+        const data = await response.json();
+        setStructure(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const saveStructure = async () => {
+      try {
+        await fetch('/api/updateStructure', {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(structure)
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (structure.length > 0) {
+      saveStructure();
+    }
+  }, [structure]);
 
   const handleFileSave = (fileName, newContent) => {
     const newStructure = JSON.parse(JSON.stringify(structure));
