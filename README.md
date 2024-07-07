@@ -4,6 +4,8 @@
 
 Online IDE write long text, code, create events share with other people.
 
+Application live ✅ [here](https://coditor-gules.vercel.app/)
+
 **Supported programming languages -**
 
 - Javascript
@@ -26,7 +28,7 @@ Online IDE write long text, code, create events share with other people.
 
 Application is being build using [next.js](https://nextjs.org/) a powerfull and extensive react framework.
 
-Upcomming features that will be added within short period of time
+### Upcomming features that will be added within short period of time
 
 - Functionality to create account and sign-in
 - API integration for user to sign-in using `SocialAuth` google/facebook
@@ -39,4 +41,4 @@ Do report bugs by creating issues I will try my best to resolve the problems in 
 
 ## Future
 
-Eventually the project would evolve to be a AI integrated IDE more like a copilot using open source models refined by fine-tuning.
+No fixed goals for this app just a pet project, will add AI features like chat/command for code-generation, text-generation. Could work on adding live sentiment analysis and report generator.
